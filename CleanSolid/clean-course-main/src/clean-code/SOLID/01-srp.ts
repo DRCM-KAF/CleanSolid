@@ -1,49 +1,58 @@
 (() => {
 
-    interface Product { 
-        id:   number;
+    // Modelo del producto
+    interface Product {
+        id: number;
         name: string;
     }
-    
-    // Usualmente, esto es una clase para controlar la vista que es desplegada al usuario
-    // Recuerden que podemos tener muchas vistas que realicen este mismo trabajo.
+
+    // 1. Gestionar productos
     class ProductBloc {
-    
-        loadProduct( id: number ) {
-            // Realiza un proceso para obtener el producto y retornarlo
-            console.log('Producto: ',{ id, name: 'OLED Tv' });
+
+        loadProduct(id: number): Product {
+            const product: Product = {
+                id,
+                name: 'OLED TV'
+            };
+
+            console.log('Producto:', product);
+
+            return product;
         }
-    
-        saveProduct( product: Product ) {
-            // Realiza una petición para salvar en base de datos 
-            console.log('Guardando en base de datos', product );
+
+        saveProduct(product: Product): void {
+            console.log('Guardando en base de datos:', product);
         }
-    
-        notifyClients() {
+    }
+
+    // 2. Gestionar notificaciones
+    class NotificationService {
+
+        notifyClients(): void {
             console.log('Enviando correo a los clientes');
         }
-        //Todo relacionado al carrito de compras 
-        onAddToCart( productId: number ) {
-            // Agregar al carrito de compras
-            console.log('Agregando al carrito ', productId );
-        }
-    
     }
-    
 
+    // 3. Gestionar el carrito de compras
+    class CartBloc {
+
+        onAddToCart(productId: number): void {
+            console.log('Agregando al carrito:', productId);
+        }
+    }
+
+    // Crear objetos
     const productBloc = new ProductBloc();
-    const cartBlock = new ProductBloc();
+    const notificationService = new NotificationService();
+    const cartBloc = new CartBloc();
 
-    productBloc.loadProduct(10);
-    productBloc.saveProduct({ id: 10, name: 'OLED TV' });
-    productBloc.notifyClients();
-    cartBlock.onAddToCart(10);
+    // Ejecutar funcionalidades
+    const product = productBloc.loadProduct(10);
 
+    productBloc.saveProduct(product);
 
+    notificationService.notifyClients();
 
-
-
-
-
+    cartBloc.onAddToCart(10);
 
 })();
