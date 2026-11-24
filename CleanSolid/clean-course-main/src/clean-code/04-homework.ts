@@ -1,14 +1,14 @@
+
 (() => {
-    
-    // Resolver sin la triple condicional dentro del if
+
+    // 1. Verificar si una fruta es roja
     function isRedFruit(fruit: string): boolean {
         const redFruits = ['manzana', 'cereza', 'ciruela'];
-
         return redFruits.includes(fruit);
     }
 
-    // Simplificar esta función
-     function getFruitsByColor(color: string): string[] {
+    // 2. Obtener frutas por color
+    function getFruitsByColor(color: string): string[] {
 
         const fruits: { [key: string]: string[] } = {
             red: ['manzana', 'fresa'],
@@ -16,50 +16,49 @@
             purple: ['moras', 'uvas']
         };
 
-        if (fruits[color]) {
-            return fruits[color];
-        } else {
-            throw Error('the color must be: red, yellow, purple');
+        const selectedFruits = fruits[color];
+
+        if (!selectedFruits) {
+            throw new Error('the color must be: red, yellow, purple');
         }
+
+        return selectedFruits;
     }
 
-    // Simplificar esta función
+    // 3. Verificar los pasos de trabajo
+    const workingSteps = (): string => {
+
+        const steps = [
+            isFirstStepWorking,
+            isSecondStepWorking,
+            isThirdStepWorking,
+            isFourthStepWorking
+        ];
+
+        const brokenStep = steps.findIndex(step => !step);
+
+        if (brokenStep !== -1) {
+            return `${['First', 'Second', 'Third', 'Fourth'][brokenStep]} step broken.`;
+        }
+
+        return 'Working properly!';
+    };
+
     let isFirstStepWorking = true;
     let isSecondStepWorking = true;
     let isThirdStepWorking = true;
     let isFourthStepWorking = true;
 
-    function workingSteps() {
-
-        if (!isFirstStepWorking) {
-            return 'First step broken.';
-        }
-
-        if (!isSecondStepWorking) {
-            return 'Second step broken.';
-        }
-
-        if (!isThirdStepWorking) {
-            return 'Third step broken.';
-        }
-
-        if (!isFourthStepWorking) {
-            return 'Fourth step broken.';
-        }
-
-        return 'Working properly!';
-    }
-
     // isRedFruit
     console.log({ isRedFruit: isRedFruit('cereza'), fruit: 'cereza' });
     console.log({ isRedFruit: isRedFruit('piña'), fruit: 'piña' });
 
-    //getFruitsByColor
+    // getFruitsByColor
     console.log({ redFruits: getFruitsByColor('red') });
     console.log({ yellowFruits: getFruitsByColor('yellow') });
     console.log({ purpleFruits: getFruitsByColor('purple') });
 
     // workingSteps
-    console.log({ workingSteps: workingSteps() }); 
+    console.log({ workingSteps: workingSteps() });
 
 })();
